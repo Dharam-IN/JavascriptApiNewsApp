@@ -1,6 +1,5 @@
 .BannerSlider{
     position: relative;
-    margin-top: 56px;
 }
 .BannerSlider::before {
     content: "";

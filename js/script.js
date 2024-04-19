@@ -1,30 +1,40 @@
-const APIKEY = "e1044516e091486892a3b049236c1a4c";
+const APIKEY = "e7b409e3a9e740e9b6ac6f656163c074";
+// API = https://newsapi.org/v2/everything?q=tesla&from=2024-03-19&sortBy=publishedAt&apiKey=e7b409e3a9e740e9b6ac6f656163c074
 
-async function FetchData(){
-    const res = await fetch(`https://newsapi.org/v2/everything?q=tesla&from=2024-03-18&sortBy=publishedAt&apiKey=${APIKEY}`);
+
+// API Data Fetch Function
+async function FetchData(query){
+    const res = await fetch(`https://newsapi.org/v2/everything?q=${query}&from=2024-03-19&sortBy=publishedAt&apiKey=${APIKEY}`);
     const data = await res.json();
-    Products(data)
-    console.log(data)
+
+    RenderData(data);
 }
 
+FetchData("tesla");
 
-function Products(articles){
-    const ArticleRow = document.getElementById("ArticleRow");
-    let cards = "";
-    const myarticle = articles.articles;
-    myarticle.map((article) => {
-        cards+=`<div class="col-md-4 col-sm-6 col-12">
-                    <div class="card">
-                        <img src="${article.urlToImage}" class="card-img-top" alt="Card img">
-                        <div class="card-body">
-                        <h5 class="card-title">${article.title}</h5>
-                        <p class="card-text">${article.description}</p>
-                        <a href="${article.url}" target="_blank" class="btn btn-primary">Go somewhere</a>
-                        </div>
+
+// Data Render
+
+function RenderData(anshul){
+    const myarticles = anshul.articles;
+    console.log(myarticles);
+    const MyRow = document.getElementById("MyDataRow");
+
+    let data = "";
+
+    myarticles.map((india) => {
+        data+=`<div class="col-md-4 col-12">
+                <div class="card">
+                    <img src="${india.urlToImage}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${india.title}</h5>
+                        <p class="card-text">${india.description}</p>
+                        <a href="${india.url}" target="_blank" class="btn btn-primary">Go somewhere</a>
                     </div>
-                </div>`
+                </div>
+            </div>`
     })
-    ArticleRow.innerHTML = cards;
-}
 
-FetchData();
+    MyRow.innerHTML = data;
+
+}
