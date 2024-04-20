@@ -6,6 +6,8 @@ This project is a basic News App created using Vanila Javascript. It aims to pro
 ## Features
 
 - User Read News and visit main website where have news
+- Easily search for news articles based on keywords or topics.
+- Customize your news feed by selecting specific articles or topics of interest.
 
 ## Installation
 1. Clone the repository to your local machine:
