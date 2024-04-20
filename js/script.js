@@ -10,7 +10,8 @@ const truncateString = (str, numWords) => {
 
 const fetchData = async (query) => {
     try {
-        const res = await fetch(`https://newsapi.org/v2/everything?q=${query}&from=2024-03-20&sortBy=publishedAt&apiKey=${APIKEY}`);
+        const res = await fetch(`https://newsapi.org/v2/everything?q=${query}&from=2024-03-20&sortBy=publishedAt&apiKey=e44fada6650d45098fcd1ec7fb331602`);
+    
         if (!res.ok) {
             throw new Error('Failed to fetch data');
         }
