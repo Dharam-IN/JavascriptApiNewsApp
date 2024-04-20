@@ -1,4 +1,4 @@
-# Instagram Login Clone Project
+# Javascript News App
 
 ## Description
 
