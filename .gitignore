@@ -44,6 +44,7 @@ jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
+env.js
 
 # TypeScript cache
 *.tsbuildinfo
@@ -74,6 +75,7 @@ web_modules/
 
 # dotenv environment variable files
 .env
+env.js
 .env.development.local
 .env.test.local
 .env.production.local

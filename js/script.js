@@ -1,40 +1,83 @@
-const APIKEY = "e7b409e3a9e740e9b6ac6f656163c074";
-// API = https://newsapi.org/v2/everything?q=tesla&from=2024-03-19&sortBy=publishedAt&apiKey=e7b409e3a9e740e9b6ac6f656163c074
+import envfile from "../env.js";
 
+const { APIKEY } = envfile;
 
-// API Data Fetch Function
-async function FetchData(query){
-    const res = await fetch(`https://newsapi.org/v2/everything?q=${query}&from=2024-03-19&sortBy=publishedAt&apiKey=${APIKEY}`);
-    const data = await res.json();
+const truncateString = (str, numWords) => {
+    const words = str.split(' ');
+    const truncated = words.slice(0, numWords).join(' ');
+    return truncated + (words.length > numWords ? '...' : '');
+};
 
-    RenderData(data);
-}
+const fetchData = async (query) => {
+    try {
+        const res = await fetch(`https://newsapi.org/v2/everything?q=${query}&from=2024-03-20&sortBy=publishedAt&apiKey=${APIKEY}`);
+        if (!res.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        const data = await res.json();
+        console.log(data)
+        return data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return null;
+    }
+};
 
-FetchData("tesla");
-
-
-// Data Render
-
-function RenderData(anshul){
-    const myarticles = anshul.articles;
-    console.log(myarticles);
-    const MyRow = document.getElementById("MyDataRow");
-
-    let data = "";
-
-    myarticles.map((india) => {
-        data+=`<div class="col-md-4 col-12">
-                <div class="card">
-                    <img src="${india.urlToImage}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">${india.title}</h5>
-                        <p class="card-text">${india.description}</p>
-                        <a href="${india.url}" target="_blank" class="btn btn-primary">Go somewhere</a>
+const renderArticles = (articles) => {
+    const articleRow = document.getElementById("ArticleRow");
+    let cards = "";
+    articles.forEach(article => {
+        const truncatedTitle = article.title ? truncateString(article.title, 10) : "";
+        const truncatedDescription = article.description ? truncateString(article.description, 10) : "";
+        cards += `<div class="col-md-4 col-sm-6 col-12">
+                    <div class="card NewsCard">
+                        <div class="NewsImgCard">
+                            <img src="${article.urlToImage}" class="card-img-top NewsImg" alt="Card img">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">${truncatedTitle}</h5>
+                            <p class="card-text">${truncatedDescription}</p>
+                            <a href="${article.url}" target="_blank" class="btn btn-primary">Visit Site</a>
+                        </div>
                     </div>
-                </div>
-            </div>`
-    })
+                </div>`;
+    });
+    articleRow.innerHTML = cards;
+};
 
-    MyRow.innerHTML = data;
 
-}
+const formSubmit = document.getElementById("formsubmit");
+
+formSubmit.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const input = document.getElementById("myinput");
+    const data = await fetchData(input.value);
+    if (data) {
+        renderArticles(data.articles);
+    }
+});
+
+const select = async (query) => {
+    const data = await fetchData(query);
+    if (data) {
+        renderArticles(data.articles);
+    }
+};
+
+document.querySelectorAll(".dropdown-item").forEach(item => {
+    item.addEventListener("click", function() {
+        const category = this.getAttribute("data-category");
+        fetchData(category).then(data => {
+            if (data) {
+                renderArticles(data.articles);
+            }
+        });
+    });
+});
+
+// Initial fetch
+fetchData("tesla").then(data => {
+    if (data) {
+        renderArticles(data.articles);
+    }
+});

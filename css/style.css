@@ -31,6 +31,79 @@
 .BannerSlider .BannerIMGDiv .carousel-caption p{
     font-size: 20px;
 }
+/* data-category */
 .carousel-control-prev, .carousel-control-next{
     z-index: 999;
+}
+
+.NewsImgCard{
+    height: 250px;
+    overflow: hidden;
+}
+.NewsImgCard .NewsImg{
+    height: 100%;
+    width: 100%;
+    transition: all 0.6s ease;
+    object-fit: cover;
+}
+.NewsCard:hover .NewsImgCard .NewsImg{
+    transform: scale(1.2);
+}
+.mynavul {
+    align-items: center;
+    column-gap: 20px;
+}
+.mynavul li{
+    cursor: pointer;
+}
+.mylogo {
+    width: 20%;
+}
+
+.myform {
+    width: 40%;
+    position: relative;
+}
+.myform input{
+    border-radius: 0%;
+}
+.menubtn{
+    width: 10%;
+}
+.submitBTN {
+    position: absolute;
+    top: 50%;
+    right: 0%;
+    transform: translateY(-50%);
+    background-color: red;
+    border-radius: 0;
+}
+@media screen and (max-width: 992px){
+    .mylogo {
+        width: 15%;
+    }
+    .myform {
+        width: 70%;
+        position: relative;
+    }
+    .menubtn{
+        width: 10%;
+    }
+    .myform {
+        width: 60%;
+    }
+    .submitBTN {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .BannerSlider .BannerIMGDiv .carousel-caption{
+        width: 90%;
+    }
+    .BannerSlider .BannerIMGDiv .carousel-caption h5{
+        font-size: 35px;
+    }
+    .BannerSlider .BannerIMGDiv .carousel-caption p {
+        font-size: 17px;
+    }
 }
