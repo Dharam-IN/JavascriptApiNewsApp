@@ -77,6 +77,11 @@
     transform: translateY(-50%);
     background-color: red;
     border-radius: 0;
+    color: white;
+}
+.submitBTN:hover{
+    background-color: red;
+    color: white;
 }
 @media screen and (max-width: 992px){
     .mylogo {
